@@ -5,63 +5,14 @@ namespace RezaAr\Highcharts\Classes\Presenters;
 class ChartPresenter
 {
     public $display;
-    public $initJs;
     public $title;
+    public $transform;
 
     public function __construct()
     {
         $this->display = '';
-        $this->js = new InitJsPresenter();
-        $this->js->highchart = config('highchart.series_label_js');
-        $this->js->seriesLabel = config('highchart.highchart_js');
-        $this->js->exporting = config('highchart.exporting_js');
-        $this->js->exportData = config('highchart.export_data_js');
-        $this->container = new ContainerPresenter();
         $this->transform = new JsTransformerPresenter();
         $this->title = [];
-    }
-
-    public function highcart_js($bool = true)
-    {
-        $this->js->highchart = $bool;
-
-        return $this;
-    }
-
-    public function series_label_js($bool = true)
-    {
-        $this->js->seriesLabel = $bool;
-
-        return $this;
-    }
-
-    public function exporting_js($bool = true)
-    {
-        $this->js->exporting = $bool;
-
-        return $this;
-    }
-
-    public function export_data_js($bool = true)
-    {
-        $this->js->exportData = $bool;
-
-        return $this;
-    }
-
-    public function getInitJs()
-    {
-        $this->display .= $this->js->generate();
-        $this->js->init = false;
-
-        return $this;
-    }
-
-    public function container($container = 'container')
-    {
-        $this->transform->container = $container;
-
-        return $this;
     }
 
     public function title($title = [])
@@ -150,11 +101,7 @@ class ChartPresenter
 
     public function display()
     {
-        $this->getInitJs();
         $this->getTransform();
-        $display = $this->display;
-        $this->display = null;
-
-        return $display;
+        return $this->display;
     }
 }

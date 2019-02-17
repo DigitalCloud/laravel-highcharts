@@ -15,7 +15,6 @@ class JsTransformerPresenter
     public $chart = [];
     public $colors = [];
     public $credits = [];
-    public $container = 'container';
 
     public function __contruct()
     {
@@ -148,12 +147,6 @@ class JsTransformerPresenter
         $this->colors.
         $this->credits;
 
-        $allString = substr($allString, 0, -1);
-        $allString = $this->replacer($allString);
-        $generate = '<script type="text/javascript">';
-        $generate .= 'Highcharts.chart({'.$allString.'});';
-        $generate .= '</script>';
-
-        return $generate;
+        return $this->replacer(substr($allString, 0, -1));
     }
 }
